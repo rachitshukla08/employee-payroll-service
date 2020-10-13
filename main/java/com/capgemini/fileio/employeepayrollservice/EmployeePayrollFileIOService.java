@@ -30,6 +30,9 @@ public class EmployeePayrollFileIOService {
 		}
 	}
 	
+	/**
+	 * @return number of entries
+	 */
 	public long countEntries() {
 		long entries = 0;
 		try {
