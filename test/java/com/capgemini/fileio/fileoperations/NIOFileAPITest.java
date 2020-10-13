@@ -1,4 +1,4 @@
-package com.capgemini.fileio.employeepayrollservice;
+package com.capgemini.fileio.fileoperations;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,13 +9,15 @@ import java.nio.file.Paths;
 import java.util.stream.IntStream;
 import org.junit.Test;
 
+import com.capgemini.fileio.watchservice.Java8WatchService;
+
 /**
  * Unit test
  */
 public class NIOFileAPITest {
 	private static String HOME = "D:/Capgemini Training/FileIO";
 	private static String PLAY_WITH_NIO = "TempPlayGround";
-
+	
 	@Test
 	public void givenPathWhenCheckedThenConfirm() throws IOException {
 		// Check File exists
@@ -52,5 +54,11 @@ public class NIOFileAPITest {
 		System.out.println("Files.newDirectory with temp");
 		Files.newDirectoryStream(playPath, path -> path.toFile().isFile() && path.toString().contains("temp"))
 				.forEach(System.out::println);
+	}
+	
+	public void givenADirectoryWhenWatchedListsAllTheActivities() throws IOException {
+		Path dir = Paths.get(HOME+"/"+PLAY_WITH_NIO);
+		Files.list(dir).filter(Files::isRegularFile).forEach(System.out::println);
+		new Java8WatchService(dir).processEvents();
 	}
 }
