@@ -3,6 +3,7 @@ package com.capgemini.fileio.employeepayrollservice;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -22,6 +23,8 @@ public class EmployeePayrollServiceTest {
 		employeePayrollService.writeEmployeeData(IOService.FILE_IO);
 		long entries = employeePayrollService.countEntries(IOService.FILE_IO);
 		employeePayrollService.printData(IOService.FILE_IO);
+		List<EmployeePayrollData> employeeList = employeePayrollService.readData(IOService.FILE_IO);
+		System.out.println(employeeList);
 		assertEquals(3, entries);
 	}
 }

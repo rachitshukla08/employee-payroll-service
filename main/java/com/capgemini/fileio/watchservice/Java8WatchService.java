@@ -19,7 +19,7 @@ public class Java8WatchService {
 	
 	//Register given directory with watch service
 	private void registerDirWatchers(Path dir) throws IOException{
-		WatchKey key = dir.register(watcher,ENTRY_CREATE,ENTRY_DELETE,ENTRY_MODIFY);
+		WatchKey key = dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_DELETE,StandardWatchEventKinds.ENTRY_MODIFY);
 		dirWatchers.put(key, dir);
 	}
 	
@@ -51,12 +51,12 @@ public class Java8WatchService {
 				Path child = dir.resolve(name);
 				System.out.format("%s : %s\n", event.kind().name(),child);
 				
-				if(kind == ENTRY_CREATE) {
+				if(kind == StandardWatchEventKinds.ENTRY_CREATE) {
 					try {
 						if(Files.isDirectory(child))
 							scanAndRegisterDirectories(child);
 					}catch (IOException x) {}
-				}else if(kind.equals(ENTRY_DELETE)) {
+				}else if(kind.equals(StandardWatchEventKinds.ENTRY_DELETE)) {
 					if(Files.isDirectory(child))
 						dirWatchers.remove(key);
 				}
